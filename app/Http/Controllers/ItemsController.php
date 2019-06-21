@@ -23,7 +23,7 @@ class ItemsController extends Controller
 
         $this->validate($request,[
             'picture'=>'mimes:jpeg,jpg,png|required|max:2000',
-            'model'=>['required', 'max:20000', new Uppercase()],
+            'model'=>['required', 'max:20000'],
 
         ]);
         $tname=str_random(25);
