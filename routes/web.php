@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+Route::get('/',['uses'=>'ItemsController@index']);
+Route::post('/addTarget',['uses'=>'ItemsController@addTarget']);
+Route::get('/publish',['uses'=>'ItemsController@publishItem']);
+

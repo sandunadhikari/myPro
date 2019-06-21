@@ -1,99 +1,87 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Laravel</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
+@extends('layout.main')
+@section('title')
+    Create Item
+@endsection
+@section('body')
+    <div class="container">
+        <form method="post" action="{{url('/addTarget')}}" enctype="multipart/form-data" style="margin-top: 50px">
+            @csrf
+            <div class="row">
+                <div class="col-md-5 my-1">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text" style="background: #0C0C0C;color: #FEFEFE">Image Target
+                            </div>
+                        </div>
+                        <input type="file" class="form-control" id="inlineFormInputGroupUsername" name="picture">
+                    </div>
                 </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
+                <div class="col-md-2 my-1"></div>
+                <div class="col-md-5 my-1">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text" style="background: #0C0C0C;color: #FEFEFE">Assets Bundle
+                            </div>
+                        </div>
+                        <input type="file" class="form-control" id="inlineFormInputGroupUsername" name="model">
+                    </div>
                 </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5 my-1"></div>
+                <div class="col-md-2 my-1">
+                    <button type="submit" class="btn btn-warning" style="margin-left: 30px">submit</button>
+                </div>
+                <div class="col-md-5 my-1"></div>
+            </div>
+        </form>
+        <hr>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+    </div>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    @if (count($allItems) > 0)
+        <div>
+            <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-9">
+                    <table class="table">
+                        <thead class="thead-dark">
+                        <!--                <th scope="col">Target Name</th>-->
+                        <th scope="col">Image Target</th>
+                        <th scope="col">Asset Path</th>
+                        <th scope="col">Action</th>
+                        </thead>
+                        <tbody>
+                        @foreach($allItems as $value)
+                            <tr>
+                            <!--                    <td>{{$value->name}}</td>-->
+                                <td><img src="{{$value->picture}}" alt="" style="height: 100px;width: 100px"></td>
+                                <td style="padding-top: 50px">{{$value->model}}</td>
+                                <td style="padding-top: 30px">
+                                <!--                        <a class="btn btn-success" href="{{url('publish')}}" style="">Publish Changes</a>-->
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-2">
+                    <div>
+                        <a class="btn btn-success" href="{{url('publish')}}" style="">Publish Changes</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </body>
-</html>
+    @endif
+
+@endsection
