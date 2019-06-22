@@ -23,7 +23,7 @@ class ItemsController extends Controller
 
         $this->validate($request,[
             'picture'=>'mimes:jpeg,jpg,png|required|max:2000',
-            'model'=>['required', 'max:20000'],
+            'model'=>['required', 'max:20000',new UpperCase],
 
         ]);
         $tname=str_random(25);
@@ -33,7 +33,7 @@ class ItemsController extends Controller
         $pic_name = $currentTime . '.' . $image->getClientOriginalExtension();
         $path_pic = '/public/' . $currentTime . '/picture';
         $upload_pic = Storage::putFileAs($path_pic, $image, $pic_name);
-        $picture_url$picture_url = public_path('storage/' . $currentTime . '/picture/' . $pic_name);
+        $picture_url = public_path('storage/' . $currentTime . '/picture/' . $pic_name);
 
 
 
