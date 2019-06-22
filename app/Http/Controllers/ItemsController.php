@@ -33,7 +33,7 @@ class ItemsController extends Controller
         $pic_name = $currentTime . '.' . $image->getClientOriginalExtension();
         $path_pic = '/public/' . $currentTime . '/picture';
         $upload_pic = Storage::putFileAs($path_pic, $image, $pic_name);
-        $picture_url = public_path('storage/' . $currentTime . '/picture/' . $pic_name);
+        $picture_url$picture_url = public_path('storage/' . $currentTime . '/picture/' . $pic_name);
 
 
 
@@ -53,7 +53,7 @@ class ItemsController extends Controller
 
             //return response()->json(['message1' => 'ok bro'], 201);
         }else{
-            return response()->json(['message2' => [$assetsFolderPath]], 201);
+            return response()->json(['message2' => [$assetsFolderPath,$picture_url]], 201);
 
         }
         $items=new Items();
