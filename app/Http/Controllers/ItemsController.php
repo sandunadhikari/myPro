@@ -53,7 +53,7 @@ class ItemsController extends Controller
 
             //return response()->json(['message1' => 'ok bro'], 201);
         }else{
-            return response()->json(['message2' => [$picture_url]], 201);
+            return response()->json(['message2' => [$assetsFolderPath]], 201);
 
         }
         $items=new Items();
